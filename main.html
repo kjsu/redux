@@ -13,7 +13,6 @@
                 </header>
                 `
             }
-            subject();
             function toc(){
                 document.querySelector('#toc').innerHTML = `
                 <nav>
@@ -24,7 +23,6 @@
                 </nav>
                 `
             }
-            toc();
             function content(){
                 document.querySelector('#content').innerHTML = `
                 <article>
@@ -33,6 +31,8 @@
                 </article>
                 `
             }
+            subject();
+            toc();
             content();
         </script>
     </body>
