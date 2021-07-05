@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="subject"></div>
+        <div id="toc"></div>
+        <div id="content"></div>
+        <script>
+            function subject(){
+                document.querySelector('#subject').innerHTML = `
+                <header>
+                    <h1>WEB</h1>
+                    Hello, WEB!
+                </header>
+                `
+            }
+            subject();
+            function toc(){
+                document.querySelector('#toc').innerHTML = `
+                <nav>
+                    <ol>
+                        <li><a href="1.html">HTML</a></li>
+                        <li><a href="2.html">CSS</a></li>
+                    </ol>
+                </nav>
+                `
+            }
+            toc();
+            function content(){
+                document.querySelector('#content').innerHTML = `
+                <article>
+                    <h2>HTML</h2>
+                    HTML is ...
+                </article>
+                `
+            }
+            content();
+        </script>
+    </body>
+</html>
