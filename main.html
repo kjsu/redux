@@ -22,7 +22,12 @@
 						state.content.forEach(function(e){
 							liTags += `
 								<li>
-									<a href="${e.id}">${e.title}</a>
+									<a onclick="
+											event.preventDefault();
+											var action = {type:'SELECT', id:${e.id}}
+											store.dispatch(action);"
+										href="${e.id}">${e.title}
+									</a>
 								</li>`;
 						});
 
@@ -33,10 +38,21 @@
 					 `
 				}
 				function content(){
+					var state = store.getState();
+					var title, desc;
+
+					for (var i = 0; i < state.content.length; i++){
+						if (state.content[i].id === state.selected_id) {
+							title = state.content[i].title;
+							desc = state.content[i].desc;
+							break;
+						}
+					}
+
 					 document.querySelector('#content').innerHTML = `
 					 <article>
-						  <h2>HTML</h2>
-						  HTML is ...
+						  <h2>${title}</h2>
+						  ${desc}
 					 </article>
 					 `
 				}
@@ -44,15 +60,22 @@
 				function reducer(state, action){
 					 if (state === undefined){
 						  return {
+							  	selected_id:1,
 								content:[
 									 {id:1, title:'HTML', desc:'HTML is ...'},
 									 {id:2, title:'CSS', desc:'CSS is ...'}
 								]
 						  }
 					 }
+
+					var newState = {};
+					if (action.type === 'SELECT'){
+						newState = Object.assign({}, state, {selected_id:action.id});
+					}
+					return newState;
 				}
 				var store = Redux.createStore(reducer);
-
+				store.subscribe(content);
 				subject();
 				toc();
 				content();
