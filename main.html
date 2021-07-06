@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
-    </head>
-    <body>
-        <div id="subject"></div>
-        <div id="toc"></div>
-        <div id="content"></div>
-        <script>
-            function subject(){
-                document.querySelector('#subject').innerHTML = `
-                <header>
-                    <h1>WEB</h1>
-                    Hello, WEB!
-                </header>
-                `
-            }
-            function toc(){
-                document.querySelector('#toc').innerHTML = `
-                <nav>
-                    <ol>
-                        <li><a href="1.html">HTML</a></li>
-                        <li><a href="2.html">CSS</a></li>
-                    </ol>
-                </nav>
-                `
-            }
-            function content(){
-                document.querySelector('#content').innerHTML = `
-                <article>
-                    <h2>HTML</h2>
-                    HTML is ...
-                </article>
-                `
-            }
+	 <head>
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+	 </head>
+	 <body>
+		  <div id="subject"></div>
+		  <div id="toc"></div>
+		  <div id="content"></div>
+		  <script>
+				function subject(){
+					 document.querySelector('#subject').innerHTML = `
+					 <header>
+						  <h1>WEB</h1>
+						  Hello, WEB!
+					 </header>
+					 `
+				}
+				function toc(){
+						var state = store.getState();
+						var liTags = '';
+						state.content.forEach(function(e){
+							liTags += `
+								<li>
+									<a href="${e.id}">${e.title}</a>
+								</li>`;
+						});
 
-            function reducer(state, action){
-                if (state === undefined){
-                    return {
-                        content:[
-                            {id:1, title:'HTML', desc:'HTML is ...'},
-                            {id:2, title:'CSS', desc:'CSS is ...'}
-                        ]
-                    }
-                }
-            }
-            var store = Redux.createStore(reducer);
+					 document.querySelector('#toc').innerHTML = `
+					 <nav>
+						  <ol>${liTags}</ol>
+					 </nav>
+					 `
+				}
+				function content(){
+					 document.querySelector('#content').innerHTML = `
+					 <article>
+						  <h2>HTML</h2>
+						  HTML is ...
+					 </article>
+					 `
+				}
 
-            subject();
-            toc();
-            content();
-        </script>
-    </body>
+				function reducer(state, action){
+					 if (state === undefined){
+						  return {
+								content:[
+									 {id:1, title:'HTML', desc:'HTML is ...'},
+									 {id:2, title:'CSS', desc:'CSS is ...'}
+								]
+						  }
+					 }
+				}
+				var store = Redux.createStore(reducer);
+
+				subject();
+				toc();
+				content();
+		  </script>
+	 </body>
 </html>
