@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    </head>
     <body>
         <div id="subject"></div>
         <div id="toc"></div>
@@ -31,6 +34,19 @@
                 </article>
                 `
             }
+
+            function reducer(state, action){
+                if (state === undefined){
+                    return {
+                        content:[
+                            {id:1, title:'HTML', desc:'HTML is ...'},
+                            {id:2, title:'CSS', desc:'CSS is ...'}
+                        ]
+                    }
+                }
+            }
+            var store = Redux.createStore(reducer);
+
             subject();
             toc();
             content();
